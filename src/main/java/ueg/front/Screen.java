@@ -17,8 +17,15 @@ public class Screen extends JFrame {
     private JPanel writeGroup;
     private JPanel usersPanel;
 
-    private JList usersList;
+    private JList<String> usersList;
 
+    private JTextArea reply;
+
+    private JScrollPane scroll;
+
+    private String teste = "teste";
+
+    String[] users = {"User 1", "User 2", "User 3"};
 
 
     private Screen (){
@@ -44,7 +51,6 @@ public class Screen extends JFrame {
 
     private void buildLayout() {
         mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.GRAY);
 
         writeGroup = new JPanel(new BorderLayout());
         write = new JTextField();
@@ -60,14 +66,28 @@ public class Screen extends JFrame {
         mainPanel.add(writeGroup, BorderLayout.SOUTH);
 
         usersPanel = new JPanel(new BorderLayout());
-        usersPanel.setPreferredSize(new Dimension(200, 600));
+        usersPanel.setPreferredSize(new Dimension(150, 600));
         usersPanel.setBackground(Color.BLACK);
-        usersList = new JList();
+
+        usersList = new JList<>(users);
         usersList.setBackground(Color.BLACK);
         usersList.setForeground(Color.WHITE);
         usersList.setFont(new Font("Times New Roman", Font.BOLD, 24));
+
+        
         usersPanel.add(usersList, BorderLayout.CENTER);
         mainPanel.add(usersPanel, BorderLayout.WEST);
+
+        reply = new JTextArea();
+        reply.setEditable(false);
+        reply.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        reply.setBackground(Color.GRAY);
+        reply.setForeground(Color.WHITE);
+
+        scroll = new JScrollPane(reply);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        mainPanel.add(scroll, BorderLayout.CENTER);
 
         getContentPane().add(mainPanel);
     }
