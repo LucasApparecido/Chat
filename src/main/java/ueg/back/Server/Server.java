@@ -1,4 +1,4 @@
-package ueg.back;
+package ueg.back.Server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

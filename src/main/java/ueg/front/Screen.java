@@ -9,7 +9,17 @@ public class Screen extends JFrame {
     public static final int width = 800;
     public static final int height = 600;
 
-    public JTextField write;
+    private JTextField write;
+
+    private JButton send;
+
+    private JPanel mainPanel;
+    private JPanel writeGroup;
+    private JPanel usersPanel;
+
+    private JList usersList;
+
+
 
     private Screen (){
         setTitle("Chat - User");
@@ -20,7 +30,7 @@ public class Screen extends JFrame {
         getContentPane().setLayout(new BorderLayout());
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
 
-        //buildLayout();
+        buildLayout();
 
         setVisible(true);
     }
@@ -32,18 +42,35 @@ public class Screen extends JFrame {
         return instance;
     }
 
-    private void buildLayout(){
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.setBackground(new Color (1,32,15));
+    private void buildLayout() {
+        mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBackground(Color.GRAY);
 
+        writeGroup = new JPanel(new BorderLayout());
         write = new JTextField();
         write.setFont(new Font("Times New Roman", Font.BOLD, 24));
         write.setHorizontalAlignment(JTextField.RIGHT);
-        //setWriteSize(display, 300, 50);
-        write.setBackground(new Color(1,32,15));
-        write.setEnabled(false);
-        mainPanel.add(write, BorderLayout.SOUTH);
+        write.setPreferredSize(new Dimension(300, 50));
+        write.setBackground(Color.GRAY);
+        writeGroup.add(write, BorderLayout.CENTER);
+
+        send = new JButton("Enviar");
+        writeGroup.add(send, BorderLayout.EAST);
+
+        mainPanel.add(writeGroup, BorderLayout.SOUTH);
+
+        usersPanel = new JPanel(new BorderLayout());
+        usersPanel.setPreferredSize(new Dimension(200, 600));
+        usersPanel.setBackground(Color.BLACK);
+        usersList = new JList();
+        usersList.setBackground(Color.BLACK);
+        usersList.setForeground(Color.WHITE);
+        usersList.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        usersPanel.add(usersList, BorderLayout.CENTER);
+        mainPanel.add(usersPanel, BorderLayout.WEST);
+
+        getContentPane().add(mainPanel);
     }
+
 
 }
