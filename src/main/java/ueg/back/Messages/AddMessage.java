@@ -15,36 +15,23 @@ public class AddMessage {
     private JScrollPane scroll = screen.getScroll();
 
     private String prefix;
-    private String formattedMessage;
 
     private JLabel messageLabel;
 
-    public void addMessage(String message, String nameUser, Boolean writer) {
-        mountMessage(message, nameUser, writer);
+    public void addMessage(String message, String nameUser) {
+        mountMessage(message, nameUser);
     }
 
-    private void mountMessage(String message, String nameUser, Boolean writer) {
-
+    private void mountMessage(String message, String nameUser) {
         prefix = nameUser + ": ";
-        formattedMessage = prefix + message;
-        messageLabel = new JLabel(formattedMessage);
+        messageLabel = new JLabel(prefix + message);
         messageLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         messageLabel.setForeground(Color.BLACK);
 
-        // Defina o alinhamento baseado no remetente da mensagem
-        if (writer) {
-            messageLabel.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        } else {
-            messageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        }
-
-        // Adicione o JLabel ao JPanel
         reply.add(messageLabel);
 
-        // Defina o layout do JPanel como BoxLayout para organizar as mensagens de baixo para cima
         reply.setLayout(new BoxLayout(reply, BoxLayout.Y_AXIS));
 
-        // Atualize o JScrollPane
         scroll.revalidate();
         scroll.repaint();
     }

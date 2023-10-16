@@ -25,8 +25,6 @@ public class Screen extends JFrame {
 
     private JScrollPane scroll;
 
-    private String teste = "teste";
-
     private JPanel chatPanel;
 
     private JLabel sendLabel;
