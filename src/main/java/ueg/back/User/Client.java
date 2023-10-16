@@ -22,19 +22,20 @@ public class Client {
         BufferedReader inTeclado = new BufferedReader(new InputStreamReader(System.in));
 
         String teclado = inTeclado.readLine();
-        out.println("CLIENTE: envio de dado - "+ teclado);
+        out.println("CLIENTE: envio de dado - " + teclado);
         System.out.println(teclado);
 
         String fromServer = inServidor.readLine();
         System.out.println(fromServer);
 
 
-
     }
 
 
-    public static void main(String[] args)throws UnknownHostException, IOException{
+    public static void main(String[] args) throws UnknownHostException, IOException {
         Client.run();
+        String name;
+
     }
 
 

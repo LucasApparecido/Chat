@@ -3,24 +3,29 @@ package ueg.back.Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Server {
 
-    public static void main(String[] args) throws IOException {
-        // TODO code application logic here
-        try {
-            ServerSocket servidor = new ServerSocket(12345);
-            System.out.println("Porta 12345 aberta!");
+    private ServerSocket serverSocket;
+    private Socket socket;
+    private ServerThread serverThread;
 
+    public Server() {
+
+        try {
+            serverSocket = new ServerSocket(12345);
+            System.out.println("Servidor rodando na porta 12345");
             while (true) {
-                Socket cliente = servidor.accept();
-                System.out.println("Nova conexão com o cliente" + cliente.getInetAddress().getHostAddress());
-                ServerThread thread = new ServerThread(cliente);
-                thread.start();
+                socket = serverSocket.accept();
+                System.out.println("Cliente conectado: " + socket.getInetAddress().getHostAddress());
+                serverThread = new ServerThread(socket);
+                serverThread.start();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
         }
-
     }
+
 }

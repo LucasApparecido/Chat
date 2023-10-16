@@ -1,5 +1,7 @@
 package ueg.front;
 
+import ueg.back.Personalize.CustomListCellRenderer;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,13 +21,18 @@ public class Screen extends JFrame {
 
     private JList<String> usersList;
 
-    private JTextArea reply;
+    private JPanel reply;
 
     private JScrollPane scroll;
 
     private String teste = "teste";
 
+    private JPanel chatPanel;
+
+    private JLabel sendLabel;
+
     String[] users = {"User 1", "User 2", "User 3"};
+
 
 
     private Screen (){
@@ -51,46 +58,77 @@ public class Screen extends JFrame {
 
     private void buildLayout() {
         mainPanel = new JPanel(new BorderLayout());
+        chatPanel = new JPanel(new BorderLayout());
 
         writeGroup = new JPanel(new BorderLayout());
         write = new JTextField();
-        write.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        write.setHorizontalAlignment(JTextField.RIGHT);
+        write.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        write.setHorizontalAlignment(JTextField.LEFT);
         write.setPreferredSize(new Dimension(300, 50));
-        write.setBackground(Color.GRAY);
+        write.setBackground(new Color(68,161,160));
+        write.setForeground(new Color(255,255,250));
         writeGroup.add(write, BorderLayout.CENTER);
 
-        send = new JButton("Enviar");
+
+        send = new JButton();
+        send.setBackground(new Color(13,92,99));
+        send.setForeground(new Color(255,255,250));
+        send.setIcon(new ImageIcon(getClass().getResource("/send.png")));
+        send.setPreferredSize(new Dimension(50, 50));
         writeGroup.add(send, BorderLayout.EAST);
 
-        mainPanel.add(writeGroup, BorderLayout.SOUTH);
+        chatPanel.add(writeGroup, BorderLayout.SOUTH);
 
-        usersPanel = new JPanel(new BorderLayout());
-        usersPanel.setPreferredSize(new Dimension(150, 600));
-        usersPanel.setBackground(Color.BLACK);
+        reply = new JPanel();
+        reply.setBackground(new Color(120,205,215));
 
-        usersList = new JList<>(users);
-        usersList.setBackground(Color.BLACK);
-        usersList.setForeground(Color.WHITE);
-        usersList.setFont(new Font("Times New Roman", Font.BOLD, 24));
-
-        
-        usersPanel.add(usersList, BorderLayout.CENTER);
-        mainPanel.add(usersPanel, BorderLayout.WEST);
-
-        reply = new JTextArea();
-        reply.setEditable(false);
-        reply.setFont(new Font("Times New Roman", Font.BOLD, 24));
-        reply.setBackground(Color.GRAY);
-        reply.setForeground(Color.WHITE);
 
         scroll = new JScrollPane(reply);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        mainPanel.add(scroll, BorderLayout.CENTER);
+        chatPanel.add(scroll, BorderLayout.CENTER);
+        mainPanel.add(chatPanel, BorderLayout.CENTER);
+
+        usersPanel = new JPanel(new BorderLayout());
+        usersPanel.setPreferredSize(new Dimension(150, 600));
+
+        usersList = new JList<>(users);
+        usersList.setBackground(new Color(36,123,123));
+        usersList.setForeground(new Color(255,255,250));
+        usersList.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        usersList.setCellRenderer(new CustomListCellRenderer());
+
+        usersPanel.add(usersList, BorderLayout.CENTER);
+        mainPanel.add(usersPanel, BorderLayout.WEST);
 
         getContentPane().add(mainPanel);
     }
 
+    public JPanel getReply() {
+        return reply;
+    }
 
+    public JTextField getWrite() {
+        return write;
+    }
+
+    public JList<String> getUsersList() {
+        return usersList;
+    }
+
+    public JScrollPane getScroll() {
+        return scroll;
+    }
+
+    public void setReply(JPanel reply) {
+        this.reply = reply;
+    }
+
+    public void setUsersList(JList<String> usersList) {
+        this.usersList = usersList;
+    }
+
+    public void setScroll(JScrollPane scroll) {
+        this.scroll = scroll;
+    }
 }
