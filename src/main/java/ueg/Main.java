@@ -1,17 +1,17 @@
 package ueg;
 
-import ueg.back.Messages.AddMessage;
+import ueg.back.ChatClient;
 
-import static ueg.front.Screen.getInstance;
+import javax.swing.*;
 
 public class Main {
-
     public static void main(String[] args) {
-        //inicia o programa
-        getInstance();
+        String serverAddress = "localhost";
+        int port = 12345;
 
-        AddMessage addMessage = new AddMessage();
-        addMessage.addMessage("Mensagem", "Samuel");
-
+        SwingUtilities.invokeLater(() -> {
+            String userName = JOptionPane.showInputDialog("Digite seu nome: ");
+            ChatClient.getInstance(serverAddress, port, userName);
+        });
     }
 }

@@ -1,7 +1,6 @@
-package ueg.back.Personalize;
+package ueg.front.Personalize;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class CustomListCellRenderer extends DefaultListCellRenderer {
