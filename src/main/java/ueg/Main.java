@@ -1,6 +1,7 @@
 package ueg;
 
 import ueg.back.ChatClient;
+import ueg.front.Screen;
 
 import javax.swing.*;
 

@@ -21,8 +21,12 @@ public class Screen extends JFrame {
     private JPanel reply;
     private JScrollPane scroll;
     private JPanel chatPanel;
-
     private String userName;
+    private JPanel usersPanel;
+
+    private DefaultListModel<String> usersListModel;
+
+    private JList userList;
 
     private Screen(String userName) {
         this.userName = userName;
@@ -79,17 +83,27 @@ public class Screen extends JFrame {
         chatPanel.add(scroll, BorderLayout.CENTER);
         mainPanel.add(chatPanel, BorderLayout.CENTER);
 
-        /*usersPanel = new JPanel(new BorderLayout());
+
+        usersPanel = new JPanel(new BorderLayout());
         usersPanel.setPreferredSize(new Dimension(150, 600));
 
-        usersList = new JList<>(users);
-        usersList.setBackground(new Color(36,123,123));
-        usersList.setForeground(new Color(255,255,250));
+        usersListModel = new DefaultListModel<>();
+        usersListModel.addElement("Todos");
+        usersList = new JList<>(usersListModel);
+        usersList.setBackground(new Color(36, 123, 123));
+        usersList.setForeground(new Color(255, 255, 250));
         usersList.setFont(new Font("Times New Roman", Font.PLAIN, 24));
         usersList.setCellRenderer(new CustomListCellRenderer());
+        usersList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                String selectedUser = usersList.getSelectedValue();
+                if (selectedUser != null && !selectedUser.equals(userName)) {
+                }
+            }
+        });
 
         usersPanel.add(usersList, BorderLayout.CENTER);
-        mainPanel.add(usersPanel, BorderLayout.WEST);*/
+        mainPanel.add(usersPanel, BorderLayout.WEST);
 
         getContentPane().add(mainPanel);
     }
@@ -116,5 +130,13 @@ public class Screen extends JFrame {
 
     public void setReply(JPanel reply) {
         this.reply = reply;
+    }
+
+    public DefaultListModel<String> getUsersListModel() {
+        return usersListModel;
+    }
+
+    public void setUsersListModel(DefaultListModel<String> usersListModel) {
+        this.usersListModel = usersListModel;
     }
 }
