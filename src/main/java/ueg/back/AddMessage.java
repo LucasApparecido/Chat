@@ -29,6 +29,7 @@ public class AddMessage {
     }
 
     private void mountMessage(String message, String userName, Boolean writer) {
+
         prefix = userName + ": ";
         messageLabel = new JLabel(prefix + message);
         messageLabel.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -40,12 +41,13 @@ public class AddMessage {
             decoratorColorC = new ColorDecorator(contactMessageColor);
             decoratorColorC.decorate(messageLabel);
         }
-
         reply.add(messageLabel);
 
 
         screen.setReply(reply);
         screen.revalidate();
         screen.repaint();
+
+
     }
 }

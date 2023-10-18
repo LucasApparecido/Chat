@@ -47,6 +47,7 @@ public class ChatClient {
                 String message = (String) inputStream.readUTF();
                 AddMessage addMessage = new AddMessage();
                 addMessage.addMessage(message, userName, false);
+
                 System.out.println("Mensagem recebida");
 
             }
