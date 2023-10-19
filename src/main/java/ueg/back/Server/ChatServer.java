@@ -27,12 +27,15 @@ public class ChatServer {
                 ClientHandler clientHandler = new ClientHandler(clientSocket, this);
                 addClient(clientHandler);
 
+                clientHandler.sendMessage("Bem-vindo ao chat!, mande um Olá", "Servidor");
+
                 new Thread(clientHandler).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
 
 
     public void broadcastMessage(String message, ClientHandler sender) {

@@ -1,13 +1,13 @@
 package ueg.front;
 
-import ueg.back.AddMessage;
+import ueg.back.Messages.AddMessage;
 import ueg.back.ChatClient;
-import ueg.front.Personalize.CustomListCellRenderer;
+import ueg.back.Messages.MessageObserver;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Screen extends JFrame {
+public class Screen extends JFrame implements MessageObserver {
     private static Screen instance;
 
     public static final int width = 800;
@@ -17,7 +17,7 @@ public class Screen extends JFrame {
     private JButton send;
     private JPanel mainPanel;
     private JPanel writeGroup;
-    private JList<String> usersList;
+ //   private JList<String> usersList;
     private JPanel reply;
     private JScrollPane scroll;
     private JPanel chatPanel;
@@ -103,6 +103,12 @@ public class Screen extends JFrame {
             ChatClient server = ChatClient.getInstance("localhost", 12345, userName);
             server.sendMessage(message, userName);
         }
+    }
+
+    @Override
+    public void update(String userName, String message) {
+        AddMessage addMessage = new AddMessage();
+        addMessage.addMessage(message, userName, false);
     }
 
     public JPanel getReply() {
