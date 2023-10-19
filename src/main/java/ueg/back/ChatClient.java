@@ -1,17 +1,23 @@
 package ueg.back;
 
+import ueg.back.Messages.AddMessage;
+import ueg.back.Messages.MessageObserver;
 import ueg.front.Screen;
 
-import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatClient {
     private Socket socket;
     private DataOutputStream outputStream;
     private DataInputStream inputStream;
+
+
+    private List<MessageObserver> observers = new ArrayList<>();
 
     private Screen screen;
 
@@ -24,6 +30,7 @@ public class ChatClient {
             inputStream = new DataInputStream(socket.getInputStream());
 
             screen = Screen.getInstance(userName);
+            addObserver(screen);
 
             new Thread(this::listenForMessages).start();
 
@@ -40,21 +47,30 @@ public class ChatClient {
         return instance;
     }
 
+    public void addObserver(MessageObserver observer) {
+        observers.add(observer);
+    }
+
+    private void notifyObservers(String userName, String message) {
+        for (MessageObserver observer : observers) {
+            observer.update(userName, message);
+        }
+    }
+
+
     private void listenForMessages() {
         try {
             while (true) {
-                String userName = (String) inputStream.readUTF();
-                String message = (String) inputStream.readUTF();
-                AddMessage addMessage = new AddMessage();
-                addMessage.addMessage(message, userName, false);
-
+                String userName = inputStream.readUTF();
+                String message = inputStream.readUTF();
+                notifyObservers(userName, message);
                 System.out.println("Mensagem recebida");
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void sendMessage(String message, String userName) {
         try {

@@ -35,6 +35,7 @@ public class ChatServer {
     }
 
 
+
     public void broadcastMessage(String message, ClientHandler sender) {
         for (ClientHandler client : clients) {
             if (client != sender) {

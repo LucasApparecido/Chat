@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Objects;
 
 public class ClientHandler implements Runnable {
     private Socket clientSocket;
@@ -32,7 +33,6 @@ public class ClientHandler implements Runnable {
         try {
             DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
 
-            // Lê o nome de usuário uma vez, já que é enviado apenas uma vez durante a conexão
             userName = inputStream.readUTF();
 
             while (true) {
@@ -56,10 +56,12 @@ public class ClientHandler implements Runnable {
 
     public void sendMessage(String message, String userName) {
         try {
-            outputStream.writeUTF(userName);
-            outputStream.flush();
-            outputStream.writeUTF(message);
-            outputStream.flush();
+            if (!Objects.equals(userName, message)) {
+                outputStream.writeUTF(userName);
+                outputStream.flush();
+                outputStream.writeUTF(message);
+                outputStream.flush();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
